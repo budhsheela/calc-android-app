@@ -5,17 +5,19 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="5dp"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="45dp"
     app:cardElevation="5dp">
     <TextView
         android:id="@+id/txtKeyElement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:fontFamily="sans-serif"
-        android:textSize="20sp"
+        android:textSize="35sp"
         android:text="key"
-        android:padding="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
         android:textAlignment="center" />
 
 </androidx.cardview.widget.CardView>
