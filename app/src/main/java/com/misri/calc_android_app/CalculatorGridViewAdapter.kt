@@ -25,7 +25,8 @@ class CalculatorGridViewAdapter(context: Context, resource: Int, objects: Mutabl
         val keyItem = getItem(position)
         keyItem?.let {
             cardItemBinding.txtKeyElement.text = keyItem!!.key
-            cardItemBinding.txtKeyElement.setTextColor(keyItem!!.color)
+            cardItemBinding.txtKeyElement.setBackgroundColor(keyItem!!.backgroundColor)
+            cardItemBinding.txtKeyElement.setTextColor(keyItem!!.textColor)
         }
         return row
     }
