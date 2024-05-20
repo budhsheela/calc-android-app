@@ -9,7 +9,7 @@ import com.misri.calc_android_app.databinding.ActivityCalculatorBinding
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-class CalculatorActivity : AppCompatActivity() {
+class CalculatorActivity : AppCompatActivity(), InputCallback {
 
     private lateinit var binding: ActivityCalculatorBinding
 
@@ -45,5 +45,9 @@ class CalculatorActivity : AppCompatActivity() {
 
         val adapter = CalculatorGridViewAdapter(this, R.id.gridSymbols, keyItemArrayList)
         binding.gridSymbols.setAdapter(adapter)
+    }
+
+    override fun setInputValue(symbol: String) {
+        binding.txtOperation.text = symbol
     }
 }

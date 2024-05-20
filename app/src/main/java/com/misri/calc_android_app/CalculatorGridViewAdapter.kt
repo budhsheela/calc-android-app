@@ -9,18 +9,18 @@ import android.widget.ArrayAdapter
 import com.misri.calc_android_app.databinding.CardItemBinding
 
 
-class CalculatorGridViewAdapter(context: Context, resource: Int, objects: MutableList<KeyItem>) :
-    ArrayAdapter<KeyItem>(context, resource, objects) {
+class CalculatorGridViewAdapter(context: Context, res: Int, objects: MutableList<KeyItem>) :
+    ArrayAdapter<KeyItem>(context, res, objects) {
         lateinit var cardItemBinding: CardItemBinding
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var row = convertView
+        var view = convertView
 
-        if (row == null) {
+        if (view == null) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             cardItemBinding = CardItemBinding.inflate(inflater, parent, false)
-            row = cardItemBinding.root
+            view = cardItemBinding.root
         } else {
-            cardItemBinding = CardItemBinding.bind(row)
+            cardItemBinding = CardItemBinding.bind(view)
         }
         val keyItem = getItem(position)
         keyItem?.let {
@@ -28,6 +28,10 @@ class CalculatorGridViewAdapter(context: Context, resource: Int, objects: Mutabl
             cardItemBinding.txtKeyElement.setBackgroundColor(keyItem!!.backgroundColor)
             cardItemBinding.txtKeyElement.setTextColor(keyItem!!.textColor)
         }
-        return row
+        view.setOnClickListener {
+            (context as InputCallback).setInputValue(keyItem!!.key)
+        }
+
+        return view
     }
 }
