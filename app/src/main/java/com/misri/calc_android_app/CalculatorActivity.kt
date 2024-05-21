@@ -1,6 +1,8 @@
 package com.misri.calc_android_app
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.misri.calc_android_app.databinding.ActivityCalculatorBinding
 
@@ -27,7 +29,7 @@ class CalculatorActivity : AppCompatActivity(), InputCallback {
             KeyItem(resources.getColor(R.color.white,theme), resources.getColor(R.color.black,theme),"7"),
             KeyItem(resources.getColor(R.color.white,theme), resources.getColor(R.color.black,theme),"8"),
             KeyItem(resources.getColor(R.color.white,theme), resources.getColor(R.color.black,theme),"9"),
-            KeyItem(resources.getColor(R.color.orange,theme), resources.getColor(R.color.white,theme),"x"),
+            KeyItem(resources.getColor(R.color.orange,theme), resources.getColor(R.color.white,theme),"*"),
             KeyItem(resources.getColor(R.color.white,theme), resources.getColor(R.color.black,theme),"4"),
             KeyItem(resources.getColor(R.color.white,theme), resources.getColor(R.color.black,theme),"5"),
             KeyItem(resources.getColor(R.color.white,theme), resources.getColor(R.color.black,theme),"6"),
@@ -45,9 +47,27 @@ class CalculatorActivity : AppCompatActivity(), InputCallback {
 
         val adapter = CalculatorGridViewAdapter(this, R.id.gridSymbols, keyItemArrayList)
         binding.gridSymbols.setAdapter(adapter)
+
+        binding.txtHistory.setOnClickListener {
+           val result = EvaluateString.evaluate(binding.txtOperation.text.toString())
+
+            binding.txtResult.text = result.toString()
+        }
     }
 
-    override fun setInputValue(symbol: String) {
-        binding.txtOperation.text = symbol
+    val sb = StringBuilder()
+    val hashSet = hashSetOf("C","%","+/-","÷","*","+","-","=")
+    override fun setInputValue(value: String) {
+        if(sb.isEmpty() && hashSet.contains(value))
+            Toast.makeText(this@CalculatorActivity,"Invalid entry", Toast.LENGTH_SHORT).show()
+        else if(value.equals("C")) {
+            binding.txtOperation.text = ""
+            sb.clear()
+            binding.txtResult.text = ""
+        }else {
+            sb.append(value)
+            binding.txtOperation.text = sb.toString()
+        }
     }
+
 }
